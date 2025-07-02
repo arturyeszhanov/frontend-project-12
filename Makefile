@@ -1,5 +1,7 @@
+.PHONY: build start
+
 build:
-	npm run build
+	npm install --prefix frontend && npm run build --prefix frontend
 
 start:
-	npx start-server -s ./frontend/dist
+	npm start
