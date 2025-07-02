@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-server": "start-server -s ./frontend/dist",
-    "build": "vite build",
+    "build": "npm run build --prefix frontend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

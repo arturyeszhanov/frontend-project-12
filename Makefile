@@ -1,5 +1,3 @@
-.PHONY: build start
-
 build:
 	npm run build
 
