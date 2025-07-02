@@ -1,0 +1,26 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/arturyeszhanov/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/arturyeszhanov/frontend-project-12/actions)",
+  "main": "index.js",
+  "scripts": {
+    "start-server": "chat-server",
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arturyeszhanov/frontend-project-12.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arturyeszhanov/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/arturyeszhanov/frontend-project-12#readme",
+  "devDependencies": {
+    "@hexlet/chat-server": "^2.0.4",
+    "vite": "^7.0.0"
+  }
+}
