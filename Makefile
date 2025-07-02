@@ -1,7 +1,7 @@
 .PHONY: build start
 
 build:
-	npm install --prefix frontend && npm run build --prefix frontend
+	cd frontend && npm install && npm run build
 
 start:
-	npm start
+	node backend/index.js

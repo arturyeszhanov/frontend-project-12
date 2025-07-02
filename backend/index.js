@@ -1,13 +1,19 @@
-// index.js
-const path = require('path');
-const fastify = require('fastify')({ logger: true });
-const fastifyStatic = require('@fastify/static');
+// backend/index.js
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import Fastify from 'fastify';
+import fastifyStatic from '@fastify/static';
 
-const buildPath = path.join(__dirname, 'frontend', 'dist');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const buildPath = path.join(__dirname, '..', 'frontend', 'dist');
+
+const fastify = Fastify({ logger: true });
 
 fastify.register(fastifyStatic, {
   root: buildPath,
-  wildcard: false,
 });
 
 fastify.setNotFoundHandler((request, reply) => {
