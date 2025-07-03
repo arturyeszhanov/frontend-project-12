@@ -1,3 +1,10 @@
 import React from 'react';
-const Main = () => <h2>Главная страница (чат)</h2>;
+
+const Main = () => (
+  <div className="text-3xl font-bold text-blue-600">
+    Главная страница (чат)
+  </div>
+);
+
+
 export default Main;

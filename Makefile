@@ -5,4 +5,5 @@ build:
 
 start:
 	npm install
-	cd backend && node index.js
+	cd frontend && npm install
+	npx concurrently "cd frontend && npm run dev" "cd backend && node index.js"
