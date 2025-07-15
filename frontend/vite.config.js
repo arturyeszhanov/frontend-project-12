@@ -18,4 +18,7 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: '../build', // важно: относительный путь из frontend к корню проекта
+  }
 });
