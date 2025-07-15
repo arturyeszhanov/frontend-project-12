@@ -10,7 +10,7 @@ import { Server as SocketIO } from 'socket.io';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const buildPath = path.join(__dirname, '..', 'frontend', 'dist');
+const buildPath = path.join(__dirname, 'build');
 
 const fastify = Fastify({ logger: true });
 const httpServer = createServer(fastify.server);
