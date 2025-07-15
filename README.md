@@ -1,7 +1,7 @@
 [![Actions Status](https://github.com/arturyeszhanov/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/arturyeszhanov/frontend-project-12/actions)
 <br><br>
 
-# 📦 Slack Chat Clone
+# 📦 Slack Chat
 
 Веб-приложение чата, разработанное с использованием **Node.js**, **Vite + React**, и развёрнутое через **Render**.
 
