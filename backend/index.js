@@ -5,7 +5,6 @@ import Fastify from 'fastify';
 import fastifyStatic from '@fastify/static';
 import fastifyCors from '@fastify/cors';
 import { createServer } from 'http';
-import { Server as SocketIO } from 'socket.io';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,7 +17,7 @@ const httpServer = createServer(fastify.server);
 // Настройка socket.io
 const io = new Server(server, {
   cors: {
-    origin: '*', // или 'http://localhost:5002'
+    origin: '*',
     methods: ['GET', 'POST']
   }
 });
@@ -34,7 +33,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// Поддержка CORS и JSON тела
 await fastify.register(fastifyCors, {
   origin: '*',
   credentials: true,
@@ -51,7 +49,6 @@ fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function
   }
 });
 
-// Эндпоинт для регистрации
 fastify.post('/api/v1/signup', async (request, reply) => {
   const { username, password } = request.body;
 
@@ -71,12 +68,10 @@ fastify.post('/api/v1/signup', async (request, reply) => {
   return reply.code(201).send(user);
 });
 
-// Отдача фронтенда
 fastify.register(fastifyStatic, {
   root: buildPath,
 });
 
-// SPA fallback
 fastify.setNotFoundHandler((request, reply) => {
   reply.type('text/html').sendFile('index.html');
 });
