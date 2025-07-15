@@ -119,7 +119,7 @@ const LogOutButton = () => {
 };
 
 const ModalFacade = () => {
-  const { modal } = useSelector((state) => state);
+  const modal = useSelector((state) => state.modal);
   console.log('modal', modal);
   console.log('modal.type', modal.type);
   console.log('getModal(modal.type)', getModal(modal.type));

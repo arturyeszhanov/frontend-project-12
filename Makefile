@@ -8,4 +8,4 @@ build: install
 	cd frontend && npm run build
 
 start:
-	npx concurrently "cd frontend && npm run dev" "npx @hexlet/chat-server"
+	npx concurrently "npx @hexlet/chat-server" "sleep 2 && cd frontend && npm run dev"

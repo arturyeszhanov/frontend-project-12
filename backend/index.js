@@ -16,11 +16,11 @@ const fastify = Fastify({ logger: true });
 const httpServer = createServer(fastify.server);
 
 // Настройка socket.io
-const io = new SocketIO(httpServer, {
+const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:5173', 'http://172.30.233.233:5173'],
-    credentials: true,
-  },
+    origin: '*', // или 'http://localhost:5002'
+    methods: ['GET', 'POST']
+  }
 });
 
 
@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
 
 // Поддержка CORS и JSON тела
 await fastify.register(fastifyCors, {
-  origin: ['http://localhost:5173', 'http://172.30.233.233:5173'],
+  origin: '*',
   credentials: true,
 });
 
