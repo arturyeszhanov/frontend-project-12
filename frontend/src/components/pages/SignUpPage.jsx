@@ -1,11 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
-import * as Yup from 'yup';
-import { Formik, Field, Form as FormikForm } from 'formik';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useEffect, useState } from 'react'
+import * as Yup from 'yup'
+import { Formik, Field, Form as FormikForm } from 'formik'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
 import {
   Container,
   Row,
@@ -14,18 +14,18 @@ import {
   Form,
   FloatingLabel,
   Button,
-} from 'react-bootstrap';
-import signUpImage from '../../assets/avatar_1-D7Cot-zE.jpg';
-import { setCredentials } from '../../slices/authSlice';
-import { useAuth } from '../../hooks';
-import routes from '../../routes.js';
+} from 'react-bootstrap'
+import signUpImage from '../../assets/avatar_1-D7Cot-zE.jpg'
+import { setCredentials } from '../../slices/authSlice'
+import { useAuth } from '../../hooks'
+import routes from '../../routes.js'
 
 const SignUpPage = () => {
-  const { logIn } = useAuth();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const [signUpError, setSignUpError] = useState(null);
+  const { logIn } = useAuth()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const [signUpError, setSignUpError] = useState(null)
   const fieldRefs = {
     username: useRef(null),
     password: useRef(null),
@@ -34,13 +34,13 @@ const SignUpPage = () => {
 
   useEffect(() => {
     fieldRefs.username.current?.focus();
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (signUpError) {
       toast.error(signUpError);
     }
-  }, [signUpError]);
+  }, [signUpError])
 
   const handleSubmit = async (
     { username, password },
@@ -50,13 +50,13 @@ const SignUpPage = () => {
       const response = await axios.post(routes.signupPath(), {
         username,
         password,
-      });
+      })
       resetForm();
       window.localStorage.setItem('userId', JSON.stringify(response.data));
       dispatch(setCredentials(response.data));
       setSignUpError(null);
       logIn(response.data);
-      navigate('/');
+      navigate('/')
     } catch (error) {
       setSignUpError(
         t(
@@ -66,7 +66,7 @@ const SignUpPage = () => {
         ),
       );
     }
-  };
+  }
 
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
@@ -79,7 +79,7 @@ const SignUpPage = () => {
     confirmPassword: Yup.string()
       .required(t('validation.required'))
       .oneOf([Yup.ref('password'), null], t('validation.passwordMatch')),
-  });
+  })
 
   const handleKeyDown = (event, submitForm, values, setFieldTouched) => {
     if (event.key === 'Enter') {
@@ -95,19 +95,19 @@ const SignUpPage = () => {
         submitForm();
       }
     }
-  };
+  }
 
   const placeholders = {
     username: 'validation.usernameMinMax',
     password: 'validation.passwordMin',
     confirmPassword: 'validation.passwordMatch',
-  };
+  }
 
   const labels = {
     username: 'signUpPage.username',
     password: 'signUpPage.password',
     confirmPassword: 'signUpPage.confirmPassword',
-  };
+  }
 
   return (
     <Container fluid className="h-100">
@@ -193,7 +193,7 @@ const SignUpPage = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default SignUpPage;
+export default SignUpPage

@@ -1,22 +1,22 @@
-import React, { useEffect, useRef } from 'react';
-import { Formik, Field, Form } from 'formik';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import * as Yup from 'yup';
-import { useTranslation } from 'react-i18next';
-import { Form as BootstrapForm, Button, Modal } from 'react-bootstrap';
-import routes from '../../routes';
-import { closeModal } from '../../slices/modalSlice';
-import { setCurrentChannel } from '../../slices/channelsSlice';
-import { useFilter } from '../../hooks/index.jsx';
+import React, { useEffect, useRef } from 'react'
+import { Formik, Field, Form } from 'formik'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import * as Yup from 'yup'
+import { useTranslation } from 'react-i18next'
+import { Form as BootstrapForm, Button, Modal } from 'react-bootstrap'
+import routes from '../../routes'
+import { closeModal } from '../../slices/modalSlice'
+import { setCurrentChannel } from '../../slices/channelsSlice'
+import { useFilter } from '../../hooks/index.jsx'
 
 const AddChannelModal = () => {
-  const filterWords = useFilter();
-  const dispatch = useDispatch();
-  const newChannelFieldRef = useRef(null);
-  const { t } = useTranslation();
-  const { auth, channels, modal } = useSelector((state) => state);
+  const filterWords = useFilter()
+  const dispatch = useDispatch()
+  const newChannelFieldRef = useRef(null)
+  const { t } = useTranslation()
+  const { auth, channels, modal } = useSelector((state) => state)
 
   const NewChannelSchema = Yup.object().shape({
     channelName: Yup.string()
@@ -47,11 +47,11 @@ const AddChannelModal = () => {
           },
         },
       );
-      dispatch(setCurrentChannel(response.data));
+      dispatch(setCurrentChannel(response.data))
       dispatch(closeModal());
-      toast.success(t('notification.successCreate'));
+      toast.success(t('notification.successCreate'))
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message)
       throw error;
     }
   };
@@ -107,4 +107,4 @@ const AddChannelModal = () => {
   );
 };
 
-export default AddChannelModal;
+export default AddChannelModal

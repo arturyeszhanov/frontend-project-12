@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
-const credentials = JSON.parse(window.localStorage.getItem('userId')) || {};
+const credentials = JSON.parse(window.localStorage.getItem('userId')) || {}
 
 const initialState = {
   username: credentials.username || null,
@@ -12,18 +12,18 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, { payload: { username, token } }) => {
-      state.username = username;
-      state.token = token;
+      state.username = username
+      state.token = token
     },
     clearCredentials: (state) => {
-      state.username = null;
-      state.token = null;
+      state.username = null
+      state.token = null
     },
   },
 });
 
-export const { setCredentials, clearCredentials } = authSlice.actions;
+export const { setCredentials, clearCredentials } = authSlice.actions
 
-export default authSlice.reducer;
+export default authSlice.reducer
 
-export const selectCurrentUser = (state) => state.auth.username;
+export const selectCurrentUser = (state) => state.auth.username

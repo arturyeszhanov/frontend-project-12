@@ -1,7 +1,6 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   root: 'frontend',
   plugins: [react()],
@@ -19,6 +18,6 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../build', // важно: относительный путь из frontend к корню проекта
+    outDir: '../build',
   }
-});
+})
