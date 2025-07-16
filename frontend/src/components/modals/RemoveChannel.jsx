@@ -1,22 +1,22 @@
-import React, { useEffect, useRef } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useRef } from 'react'
+import { Modal, Button } from 'react-bootstrap'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
-import routes from '../../routes';
-import { closeModal } from '../../slices/modalSlice';
-import { setCurrentChannel } from '../../slices/channelsSlice';
-import { removeChannelMessages } from '../../slices/messagesSlice.js';
+import routes from '../../routes'
+import { closeModal } from '../../slices/modalSlice'
+import { setCurrentChannel } from '../../slices/channelsSlice'
+import { removeChannelMessages } from '../../slices/messagesSlice.js'
 
 const RemoveChannelModal = () => {
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
-  const { modal } = useSelector((state) => state);
-  const { token } = useSelector((state) => state.auth);
-  const { list } = useSelector((state) => state.channels);
-  const deleteButtonRef = useRef(null);
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
+  const { modal } = useSelector((state) => state)
+  const { token } = useSelector((state) => state.auth)
+  const { list } = useSelector((state) => state.channels)
+  const deleteButtonRef = useRef(null)
 
   const handleRemoveChannel = async () => {
     try {
@@ -24,24 +24,24 @@ const RemoveChannelModal = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });
-      const [generalChannel] = list;
-      dispatch(removeChannelMessages(modal.selectedChannelId));
-      dispatch(setCurrentChannel(generalChannel));
-      toast.success(t('notification.successDelete'));
+      })
+      const [generalChannel] = list
+      dispatch(removeChannelMessages(modal.selectedChannelId))
+      dispatch(setCurrentChannel(generalChannel))
+      toast.success(t('notification.successDelete'))
     } catch (error) {
-      toast(error.message);
+      toast(error.message)
     } finally {
-      dispatch(closeModal());
+      dispatch(closeModal())
     }
-  };
+  }
 
   useEffect(() => {
-    console.log('modal.active, deleteButtonRef', modal.active, deleteButtonRef);
+    console.log('modal.active, deleteButtonRef', modal.active, deleteButtonRef)
     if (modal.active && deleteButtonRef.current) {
-      deleteButtonRef.current.focus();
+      deleteButtonRef.current.focus()
     }
-  }, [modal.active]);
+  }, [modal.active])
 
   return (
     <>
@@ -71,7 +71,7 @@ const RemoveChannelModal = () => {
         </div>
       </Modal.Body>
     </>
-  );
-};
+  )
+}
 
-export default RemoveChannelModal;
+export default RemoveChannelModal

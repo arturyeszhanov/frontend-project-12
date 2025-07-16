@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Formik, Field, Form } from 'formik';
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { Formik, Field, Form } from 'formik'
 import {
   Button,
   Container,
@@ -12,46 +12,46 @@ import {
   Col,
   Card,
   Form as BootstrapForm,
-} from 'react-bootstrap';
-import loginImage from '../../assets/loginImage.jpg';
-import { setCredentials } from '../../slices/authSlice.js';
-import { useAuth } from '../../hooks/index.jsx';
-import routes from '../../routes.js';
+} from 'react-bootstrap'
+import loginImage from '../../assets/loginImage.jpg'
+import { setCredentials } from '../../slices/authSlice.js'
+import { useAuth } from '../../hooks/index.jsx'
+import routes from '../../routes.js'
 
 const LoginForm = () => {
-  const usernameRef = useRef(null);
-  const { t } = useTranslation();
-  const { logIn } = useAuth();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [authError, setAuthError] = useState(null);
+  const usernameRef = useRef(null)
+  const { t } = useTranslation()
+  const { logIn } = useAuth()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [authError, setAuthError] = useState(null)
 
   useEffect(() => {
     if (authError && usernameRef.current) {
-      usernameRef.current.focus();
-      usernameRef.current.select();
+      usernameRef.current.focus()
+      usernameRef.current.select()
     }
 
     if (authError) {
-      toast.error(authError);
-      setAuthError(null);
+      toast.error(authError)
+      setAuthError(null)
     }
-  }, [authError]);
+  }, [authError])
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      setAuthError(null);
-      const response = await axios.post(routes.loginPath(), values);
-      const { data } = response;
-      resetForm();
-      dispatch(setCredentials(data));
+      setAuthError(null)
+      const response = await axios.post(routes.loginPath(), values)
+      const { data } = response
+      resetForm()
+      dispatch(setCredentials(data))
 
-      logIn(data);
-      navigate(routes.rootRoute());
+      logIn(data)
+      navigate(routes.rootRoute())
     } catch (e) {
-      setAuthError(t(e.response ? 'notification.wrongCredentials' : 'notification.error'));
+      setAuthError(t(e.response ? 'notification.wrongCredentials' : 'notification.error'))
     }
-  };
+  }
 
   return (
     <Formik
@@ -93,11 +93,11 @@ const LoginForm = () => {
         </Button>
       </Form>
     </Formik>
-  );
-};
+  )
+}
 
 const LoginPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -121,7 +121,7 @@ const LoginPage = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage
