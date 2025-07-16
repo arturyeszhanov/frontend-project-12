@@ -73,7 +73,7 @@ fastify.setNotFoundHandler((request, reply) => {
 
 const start = async () => {
   try {
-    const PORT = process.env.PORT || 5001
+    const PORT = import.meta.env.PORT || 5001
     await fastify.ready()
     httpServer.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 Server is running at http://0.0.0.0:${PORT}`)
@@ -81,7 +81,7 @@ const start = async () => {
   }
   catch (err) {
     fastify.log.error(err)
-    process.exit(1)
+    import.meta.exit(1)
   }
 }
 
