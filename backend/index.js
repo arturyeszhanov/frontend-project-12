@@ -35,8 +35,7 @@ await fastify.register(fastifyCors, {
 fastify.addContentTypeParser('application/json', { parseAs: 'string' }, (req, body, done) => {
   try {
     const json = JSON.parse(body)
-    done(null, json)
-  } catch (err) {
+    done(null, json)} catch (err) {
     err.statusCode = 400
     done(err, undefined)
   }
@@ -75,8 +74,7 @@ const start = async () => {
     await fastify.ready()
     httpServer.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 Server is running at http://0.0.0.0:${PORT}`)
-    })
-  } catch (err) {
+    })} catch (err) {
     fastify.log.error(err)
     process.exit(1)
   }
