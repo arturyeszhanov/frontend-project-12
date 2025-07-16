@@ -1,24 +1,24 @@
-import React, { useEffect, useRef } from 'react'
-import { Modal, Form as BootstrapForm, Button } from 'react-bootstrap'
-import { Formik, Field, Form } from 'formik'
-import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
-import * as Yup from 'yup'
-import { useTranslation } from 'react-i18next'
-import routes from '../../routes'
-import { closeModal } from '../../slices/modalSlice'
-import { useFilter } from '../../hooks/index.jsx'
+import React, { useEffect, useRef } from 'react';
+import { Modal, Form as BootstrapForm, Button } from 'react-bootstrap';
+import { Formik, Field, Form } from 'formik';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import routes from '../../routes';
+import { closeModal } from '../../slices/modalSlice';
+import { useFilter } from '../../hooks/index.jsx';
 
 const RenameChannelModal = () => {
-  const dispatch = useDispatch()
-  const { t } = useTranslation()
-  const renameInputRef = useRef(null)
-  const filterWords = useFilter()
-  const { selectedChannelId } = useSelector((state) => state.modal)
-  const { token } = useSelector((state) => state.auth)
-  const { list } = useSelector((state) => state.channels)
-  const { modal } = useSelector((state) => state)
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const renameInputRef = useRef(null);
+  const filterWords = useFilter();
+  const { selectedChannelId } = useSelector((state) => state.modal);
+  const { token } = useSelector((state) => state.auth);
+  const { list } = useSelector((state) => state.channels);
+  const { modal } = useSelector((state) => state);
   const selectedChannel = list.find(
     (channel) => channel.id === selectedChannelId,
   );
@@ -40,7 +40,7 @@ const RenameChannelModal = () => {
     } catch (error) {
       toast(error.message);
     }
-  }
+  };
 
   const RenameChannelSchema = Yup.object().shape({
     channelName: Yup.string()
@@ -51,7 +51,7 @@ const RenameChannelModal = () => {
         list.map((channel) => channel.name),
         t('validation.unique'),
       ),
-  })
+  });
 
   useEffect(() => {
     console.log('modal.active, renameInputRef', modal.active, renameInputRef);
@@ -112,6 +112,6 @@ const RenameChannelModal = () => {
       )}
     </Formik>
   );
-}
+};
 
-export default RenameChannelModal
+export default RenameChannelModal;

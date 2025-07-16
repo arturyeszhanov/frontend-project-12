@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
-import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
-import { useSelector, useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import React, { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
   Row,
@@ -12,16 +12,16 @@ import {
   Form as BootstrapForm,
   Dropdown,
   ButtonGroup,
-} from 'react-bootstrap'
+} from 'react-bootstrap';
 import {
   setMessages,
-} from '../../slices/messagesSlice.js'
-import { setChannels, setCurrentChannel } from '../../slices/channelsSlice.js'
-import routes from '../../routes.js'
-import { useFilter } from '../../hooks/index.jsx'
-import addChannelButton from '../../assets/addChannelButton.svg'
-import sendMessageButton from '../../assets/sendMessageButton.svg'
-import { selectChannelId, showModal } from '../../slices/modalSlice.js'
+} from '../../slices/messagesSlice.js';
+import { setChannels, setCurrentChannel } from '../../slices/channelsSlice.js';
+import routes from '../../routes.js';
+import { useFilter } from '../../hooks/index.jsx';
+import addChannelButton from '../../assets/addChannelButton.svg';
+import sendMessageButton from '../../assets/sendMessageButton.svg';
+import { selectChannelId, showModal } from '../../slices/modalSlice.js';
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation();
@@ -30,12 +30,12 @@ const Channels = ({ channels }) => {
   const dispatch = useDispatch();
   const handleClick = (channel) => {
     dispatch(setCurrentChannel(channel));
-  }
+  };
 
   const handleChannelDropdown = (channel, modalType) => {
     dispatch(selectChannelId(channel.id));
     dispatch(showModal(modalType));
-  }
+  };
 
   return (
     <Nav
@@ -99,19 +99,19 @@ const Channels = ({ channels }) => {
         </Nav.Item>
       ))}
     </Nav>
-  )
-}
+  );
+};
 
 const Messages = ({ messages }) => {
-  const messagesEndRef = useRef(null)
+  const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <div id="messages-box" className="chat-messages overflow-auto px-5">
@@ -123,38 +123,38 @@ const Messages = ({ messages }) => {
       ))}
       <div ref={messagesEndRef} />
     </div>
-  )
-}
+  );
+};
 
 const MessageForm = () => {
-  const filterWords = useFilter()
-  const { t } = useTranslation()
-  const inputRef = useRef(null)
-  const [inputValue, setInputValue] = useState('')
-  const { channels, auth, messages } = useSelector((state) => state)
-  const [errorMessage, setErrorMessage] = useState(null)
+  const filterWords = useFilter();
+  const { t } = useTranslation();
+  const inputRef = useRef(null);
+  const [inputValue, setInputValue] = useState('');
+  const { channels, auth, messages } = useSelector((state) => state);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     if (errorMessage) {
-      toast.error(errorMessage)
+      toast.error(errorMessage);
     }
   }, [errorMessage]);
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.focus()
+      inputRef.current.focus();
     }
-  }, [channels.currentChannel])
+  }, [channels.currentChannel]);
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    if (!inputValue.trim()) return
+    event.preventDefault();
+    if (!inputValue.trim()) return;
     const newMessage = {
       id: messages.list.length,
       body: filterWords(inputValue),
       channelId: channels.currentChannel.id,
       username: auth.username,
-    }
+    };
 
     try {
       await axios.post(routes.messagesPath(), newMessage, {
@@ -162,16 +162,16 @@ const MessageForm = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      setInputValue('')
-      setErrorMessage(null)
+      setInputValue('');
+      setErrorMessage(null);
       if (inputRef.current) {
-        inputRef.current.focus()
+        inputRef.current.focus();
       }
-      inputRef.current?.focus()
+      inputRef.current?.focus();
     } catch (error) {
       setErrorMessage(error.message || t('notifications.messageError'));
     }
-  }
+  };
 
   return (
     <BootstrapForm className="py-1 border rounded-2" onSubmit={handleSubmit}>
@@ -199,8 +199,8 @@ const MessageForm = () => {
       </BootstrapForm.Group>
       {errorMessage && <div className="text-danger">{errorMessage}</div>}
     </BootstrapForm>
-  )
-}
+  );
+};
 
 const NewChannelButton = () => {
   const dispatch = useDispatch();
@@ -219,13 +219,13 @@ const NewChannelButton = () => {
       />
       <span className="visually-hidden">+</span>
     </button>
-  )
-}
+  );
+};
 
 const MainPage = () => {
-  const dispatch = useDispatch()
-  const { auth, channels, messages } = useSelector((state) => state)
-  const { t } = useTranslation()
+  const dispatch = useDispatch();
+  const { auth, channels, messages } = useSelector((state) => state);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!auth.token) return;
@@ -243,7 +243,7 @@ const MainPage = () => {
               Authorization: `Bearer ${auth.token}`,
             },
           }),
-        ])
+        ]);
 
         dispatch(setChannels(channelsResponse.data));
         const [firstChannel] = channelsResponse.data;
@@ -252,7 +252,7 @@ const MainPage = () => {
       } catch (error) {
         console.error(error);
       }
-    }
+    };
 
     fetchData();
   }, [auth.token, dispatch]);
@@ -260,7 +260,7 @@ const MainPage = () => {
   const currentChannel = useSelector((state) => state.channels.currentChannel);
   const currentChannelName = currentChannel
     ? currentChannel.name
-    : 'Канал не выбран'
+    : 'Канал не выбран';
 
   const channelMessages = messages.list.filter(
     (message) => message.channelId === channels.currentChannel.id,
@@ -301,7 +301,7 @@ const MainPage = () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default MainPage
+export default MainPage;

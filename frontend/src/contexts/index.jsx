@@ -1,6 +1,6 @@
-import { createContext } from 'react'
+import { createContext } from 'react';
 
-const AuthContext = createContext({})
-const FilterContext = createContext({})
+const AuthContext = createContext({});
+const FilterContext = createContext({});
 
-export { AuthContext, FilterContext }
+export { AuthContext, FilterContext };

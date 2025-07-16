@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import notFoundImage from '../../assets/404-D_FLHmTM.svg'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import notFoundImage from '../../assets/404-D_FLHmTM.svg';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
@@ -19,7 +19,7 @@ const NotFoundPage = () => {
         <Link to="/">{t('notFoundPage.goToMainPage')}</Link>
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default NotFoundPage
+export default NotFoundPage;
