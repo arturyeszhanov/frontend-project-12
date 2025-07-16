@@ -22,10 +22,10 @@ const channelsSlice = createSlice({
       state.list.find((channel) => channel.id === action.payload.id).name = action.payload.name;
     },
   },
-})
+});
 
 export const {
   setChannels, setCurrentChannel, addNewChannel, removeChannel, renameChannel,
-} = channelsSlice.actions
+} = channelsSlice.actions;
 
-export default channelsSlice.reducer
+export default channelsSlice.reducer;
