@@ -26,7 +26,7 @@ import { selectChannelId, showModal } from '../../slices/modalSlice.js'
 const Channels = ({ channels }) => {
   const { t } = useTranslation()
 
-  const { currentChannel } = useSelector((state) => state.channels)
+  const { currentChannel } = useSelector(state => state.channels)
   const dispatch = useDispatch()
   const handleClick = (channel) => {
     dispatch(setCurrentChannel(channel))
@@ -43,59 +43,61 @@ const Channels = ({ channels }) => {
       className="flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
       as="ul"
     >
-      {channels.map((channel) => (
+      {channels.map(channel => (
         <Nav.Item className="w-100" as="li" key={channel.id}>
-          {channel.removable ? (
-            <Dropdown as={ButtonGroup} className="d-flex">
-              <Button
-                type="button"
-                variant={
-                  channel.id === currentChannel.id ? 'secondary' : 'light'
-                }
-                className="w-100 rounded-0 text-start text-truncate"
-                onClick={() => handleClick(channel)}
-                aria-label={channel.name}
-              >
-                <span className="me-1"># </span>
-                {channel.name}
-              </Button>
+          {channel.removable
+            ? (
+                <Dropdown as={ButtonGroup} className="d-flex">
+                  <Button
+                    type="button"
+                    variant={
+                      channel.id === currentChannel.id ? 'secondary' : 'light'
+                    }
+                    className="w-100 rounded-0 text-start text-truncate"
+                    onClick={() => handleClick(channel)}
+                    aria-label={channel.name}
+                  >
+                    <span className="me-1"># </span>
+                    {channel.name}
+                  </Button>
 
-              <Dropdown.Toggle
-                split
-                id="dropdown-split-basic"
-                variant={
-                  channel.id === currentChannel.id ? 'secondary' : 'light'
-                }
-              >
-                <span className="visually-hidden">{t('mainPage.controlChannel')}</span>
-              </Dropdown.Toggle>
+                  <Dropdown.Toggle
+                    split
+                    id="dropdown-split-basic"
+                    variant={
+                      channel.id === currentChannel.id ? 'secondary' : 'light'
+                    }
+                  >
+                    <span className="visually-hidden">{t('mainPage.controlChannel')}</span>
+                  </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  as="button"
-                  onClick={() => handleChannelDropdown(channel, 'removeChannel')}
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      as="button"
+                      onClick={() => handleChannelDropdown(channel, 'removeChannel')}
+                    >
+                      {t('mainPage.delete')}
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      as="button"
+                      onClick={() => handleChannelDropdown(channel, 'renameChannel')}
+                    >
+                      {t('mainPage.rename')}
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              )
+            : (
+                <Button
+                  onClick={() => handleClick(channel)}
+                  type="button"
+                  variant={channel.id === currentChannel.id ? 'secondary' : 'light'}
+                  className="w-100 rounded-0 text-start"
                 >
-                  {t('mainPage.delete')}
-                </Dropdown.Item>
-                <Dropdown.Item
-                  as="button"
-                  onClick={() => handleChannelDropdown(channel, 'renameChannel')}
-                >
-                  {t('mainPage.rename')}
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          ) : (
-            <Button
-              onClick={() => handleClick(channel)}
-              type="button"
-              variant={channel.id === currentChannel.id ? 'secondary' : 'light'}
-              className="w-100 rounded-0 text-start"
-            >
-              <span className="me-1"># </span>
-              {channel.name}
-            </Button>
-          )}
+                  <span className="me-1"># </span>
+                  {channel.name}
+                </Button>
+              )}
         </Nav.Item>
       ))}
     </Nav>
@@ -115,7 +117,7 @@ const Messages = ({ messages }) => {
 
   return (
     <div id="messages-box" className="chat-messages overflow-auto px-5">
-      {messages.map((message) => (
+      {messages.map(message => (
         <div className="text-break mb-2" key={message.id}>
           <b>{message.username}</b>
           {`: ${message.body}`}
@@ -131,7 +133,7 @@ const MessageForm = () => {
   const { t } = useTranslation()
   const inputRef = useRef(null)
   const [inputValue, setInputValue] = useState('')
-  const { channels, auth, messages } = useSelector((state) => state)
+  const { channels, auth, messages } = useSelector(state => state)
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
@@ -168,7 +170,8 @@ const MessageForm = () => {
         inputRef.current.focus()
       }
       inputRef.current?.focus()
-    } catch (error) {
+    }
+    catch (error) {
       setErrorMessage(error.message || t('notifications.messageError'))
     }
   }
@@ -185,7 +188,7 @@ const MessageForm = () => {
           type="text"
           value={inputValue}
           className="border-0 p-0 ps-2 form-control"
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={e => setInputValue(e.target.value)}
         />
         <button className="btn btn-group-vertical" type="submit">
           <img
@@ -224,7 +227,7 @@ const NewChannelButton = () => {
 
 const MainPage = () => {
   const dispatch = useDispatch()
-  const { auth, channels, messages } = useSelector((state) => state)
+  const { auth, channels, messages } = useSelector(state => state)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -249,7 +252,8 @@ const MainPage = () => {
         const [firstChannel] = channelsResponse.data
         dispatch(setCurrentChannel(firstChannel))
         dispatch(setMessages(messagesResponse.data))
-      } catch (error) {
+      }
+      catch (error) {
         console.error(error)
       }
     }
@@ -257,13 +261,13 @@ const MainPage = () => {
     fetchData()
   }, [auth.token, dispatch])
 
-  const currentChannel = useSelector((state) => state.channels.currentChannel)
+  const currentChannel = useSelector(state => state.channels.currentChannel)
   const currentChannelName = currentChannel
     ? currentChannel.name
     : 'Канал не выбран'
 
   const channelMessages = messages.list.filter(
-    (message) => message.channelId === channels.currentChannel.id,
+    message => message.channelId === channels.currentChannel.id,
   )
 
   return (
@@ -286,7 +290,7 @@ const MainPage = () => {
               <span className="text-muted">
                 {t('mainPage.messages', {
                   count: channelMessages.filter(
-                    (message) => message.channelId === currentChannel.id,
+                    message => message.channelId === currentChannel.id,
                   ).length,
                 })}
               </span>

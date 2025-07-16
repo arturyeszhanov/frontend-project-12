@@ -48,7 +48,8 @@ const LoginForm = () => {
 
       logIn(data)
       navigate(routes.rootRoute())
-    } catch (e) {
+    }
+    catch (e) {
       setAuthError(t(e.response ? 'notification.wrongCredentials' : 'notification.error'))
     }
   }

@@ -57,7 +57,8 @@ const SignUpPage = () => {
       setSignUpError(null)
       logIn(response.data)
       navigate('/')
-    } catch (error) {
+    }
+    catch (error) {
       setSignUpError(
         t(
           error.response?.status
@@ -86,12 +87,13 @@ const SignUpPage = () => {
       event.preventDefault()
       const fieldOrder = Object.keys(fieldRefs)
       const emptyField = fieldOrder.find(
-        (field) => values[field].trim() === '',
+        field => values[field].trim() === '',
       )
       if (emptyField) {
         setFieldTouched(emptyField, true)
         fieldRefs[emptyField].current?.focus()
-      } else {
+      }
+      else {
         submitForm()
       }
     }
@@ -141,7 +143,7 @@ const SignUpPage = () => {
                     {signUpError && (
                       <div className="alert alert-danger">{signUpError}</div>
                     )}
-                    {Object.keys(fieldRefs).map((fieldName) => (
+                    {Object.keys(fieldRefs).map(fieldName => (
                       <FloatingLabel
                         key={fieldName}
                         controlId={fieldName}
@@ -160,7 +162,7 @@ const SignUpPage = () => {
                                 placeholder={t(placeholders[fieldName])}
                                 isInvalid={meta.touched && !!meta.error}
                                 ref={fieldRefs[fieldName]}
-                                onKeyDown={(e) => handleKeyDown(
+                                onKeyDown={e => handleKeyDown(
                                   e,
                                   submitForm,
                                   values,

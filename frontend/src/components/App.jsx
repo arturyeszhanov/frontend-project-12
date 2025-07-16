@@ -60,7 +60,8 @@ const AuthProvider = ({ children }) => {
     try {
       const credentials = JSON.parse(window.localStorage.getItem('userId'))
       return !!credentials
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error)
       return false
     }
@@ -89,37 +90,43 @@ const PrivateRoute = ({ children }) => {
   const auth = useAuth()
   const location = useLocation()
 
-  return auth.loggedIn ? (
-    children
-  ) : (
-    <Navigate to={routes.loginRoute()} state={{ from: location }} />
-  )
+  return auth.loggedIn
+    ? (
+        children
+      )
+    : (
+        <Navigate to={routes.loginRoute()} state={{ from: location }} />
+      )
 }
 
 const PublicRoute = ({ children }) => {
   const auth = useAuth()
   const location = useLocation()
 
-  return auth.loggedIn ? (
-    <Navigate to={routes.rootRoute()} state={{ from: location }} />
-  ) : (
-    children
-  )
+  return auth.loggedIn
+    ? (
+        <Navigate to={routes.rootRoute()} state={{ from: location }} />
+      )
+    : (
+        children
+      )
 }
 
 const LogOutButton = () => {
   const { t } = useTranslation()
   const { logOut, loggedIn } = useAuth()
 
-  return loggedIn ? (
-    <button type="button" className="btn btn-primary" onClick={logOut}>
-      {t('logoutButton')}
-    </button>
-  ) : null
+  return loggedIn
+    ? (
+        <button type="button" className="btn btn-primary" onClick={logOut}>
+          {t('logoutButton')}
+        </button>
+      )
+    : null
 }
 
 const ModalFacade = () => {
-  const modal = useSelector((state) => state.modal)
+  const modal = useSelector(state => state.modal)
   console.log('modal', modal)
   console.log('modal.type', modal.type)
   console.log('getModal(modal.type)', getModal(modal.type))

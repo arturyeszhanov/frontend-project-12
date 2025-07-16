@@ -8,4 +8,4 @@ const modals = {
   renameChannel: RenameChannelModal,
 }
 
-export default (modalName) => modals[modalName]
+export default modalName => modals[modalName]

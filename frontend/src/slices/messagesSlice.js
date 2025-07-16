@@ -13,7 +13,7 @@ const messagesSlice = createSlice({
       state.list.push(action.payload)
     },
     removeChannelMessages: (state, action) => {
-      state.list = state.list.filter((message) => message.channelId !== action.payload.id)
+      state.list = state.list.filter(message => message.channelId !== action.payload.id)
     },
   },
 

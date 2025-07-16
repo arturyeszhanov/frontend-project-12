@@ -15,12 +15,12 @@ const RenameChannelModal = () => {
   const { t } = useTranslation()
   const renameInputRef = useRef(null)
   const filterWords = useFilter()
-  const { selectedChannelId } = useSelector((state) => state.modal)
-  const { token } = useSelector((state) => state.auth)
-  const { list } = useSelector((state) => state.channels)
-  const { modal } = useSelector((state) => state)
+  const { selectedChannelId } = useSelector(state => state.modal)
+  const { token } = useSelector(state => state.auth)
+  const { list } = useSelector(state => state.channels)
+  const { modal } = useSelector(state => state)
   const selectedChannel = list.find(
-    (channel) => channel.id === selectedChannelId,
+    channel => channel.id === selectedChannelId,
   )
 
   const handleSubmitForm = async ({ channelName }) => {
@@ -37,7 +37,8 @@ const RenameChannelModal = () => {
       )
       dispatch(closeModal())
       toast.success(t('notification.successRename'))
-    } catch (error) {
+    }
+    catch (error) {
       toast(error.message)
     }
   }
@@ -48,7 +49,7 @@ const RenameChannelModal = () => {
       .max(20, t('validation.channelNameMinMax'))
       .required(t('validation.required'))
       .notOneOf(
-        list.map((channel) => channel.name),
+        list.map(channel => channel.name),
         t('validation.unique'),
       ),
   })
@@ -91,14 +92,16 @@ const RenameChannelModal = () => {
             <label className="visually-hidden" htmlFor="channelName">
               {t('mainPage.channelName')}
             </label>
-            {errors.channelName && touched.channelName ? (
-              <BootstrapForm.Control.Feedback
-                type="invalid"
-                className="d-block"
-              >
-                {errors.channelName}
-              </BootstrapForm.Control.Feedback>
-            ) : null}
+            {errors.channelName && touched.channelName
+              ? (
+                  <BootstrapForm.Control.Feedback
+                    type="invalid"
+                    className="d-block"
+                  >
+                    {errors.channelName}
+                  </BootstrapForm.Control.Feedback>
+                )
+              : null}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => dispatch(closeModal())}>

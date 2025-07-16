@@ -13,9 +13,9 @@ import { removeChannelMessages } from '../../slices/messagesSlice.js'
 const RemoveChannelModal = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const { modal } = useSelector((state) => state)
-  const { token } = useSelector((state) => state.auth)
-  const { list } = useSelector((state) => state.channels)
+  const { modal } = useSelector(state => state)
+  const { token } = useSelector(state => state.auth)
+  const { list } = useSelector(state => state.channels)
   const deleteButtonRef = useRef(null)
 
   const handleRemoveChannel = async () => {
@@ -29,9 +29,11 @@ const RemoveChannelModal = () => {
       dispatch(removeChannelMessages(modal.selectedChannelId))
       dispatch(setCurrentChannel(generalChannel))
       toast.success(t('notification.successDelete'))
-    } catch (error) {
+    }
+    catch (error) {
       toast(error.message)
-    } finally {
+    }
+    finally {
       dispatch(closeModal())
     }
   }

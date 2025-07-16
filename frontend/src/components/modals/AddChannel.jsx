@@ -16,7 +16,7 @@ const AddChannelModal = () => {
   const dispatch = useDispatch()
   const newChannelFieldRef = useRef(null)
   const { t } = useTranslation()
-  const { auth, channels, modal } = useSelector((state) => state)
+  const { auth, channels, modal } = useSelector(state => state)
 
   const NewChannelSchema = Yup.object().shape({
     channelName: Yup.string()
@@ -24,7 +24,7 @@ const AddChannelModal = () => {
       .max(20, t('validation.channelNameMinMax'))
       .required(t('validation.required'))
       .notOneOf(
-        channels.list.map((channel) => channel.name),
+        channels.list.map(channel => channel.name),
         t('validation.unique'),
       ),
   })
@@ -50,7 +50,8 @@ const AddChannelModal = () => {
       dispatch(setCurrentChannel(response.data))
       dispatch(closeModal())
       toast.success(t('notification.successCreate'))
-    } catch (error) {
+    }
+    catch (error) {
       toast.error(error.message)
       throw error
     }
@@ -84,14 +85,16 @@ const AddChannelModal = () => {
             <label className="visually-hidden" htmlFor="channelName">
               {t('mainPage.channelName')}
             </label>
-            {errors.channelName && touched.channelName ? (
-              <BootstrapForm.Control.Feedback
-                type="invalid"
-                className="d-block"
-              >
-                {errors.channelName}
-              </BootstrapForm.Control.Feedback>
-            ) : null}
+            {errors.channelName && touched.channelName
+              ? (
+                  <BootstrapForm.Control.Feedback
+                    type="invalid"
+                    className="d-block"
+                  >
+                    {errors.channelName}
+                  </BootstrapForm.Control.Feedback>
+                )
+              : null}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => dispatch(closeModal())}>
