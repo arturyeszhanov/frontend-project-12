@@ -22,6 +22,7 @@ import { useFilter } from '../../hooks/index.jsx'
 import addChannelButton from '../../assets/addChannelButton.svg'
 import sendMessageButton from '../../assets/sendMessageButton.svg'
 import { selectChannelId, showModal } from '../../slices/modalSlice.js'
+import PropTypes from 'prop-types'
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation()
@@ -104,6 +105,10 @@ const Channels = ({ channels }) => {
   )
 }
 
+Channels.propTypes = {
+  channels: PropTypes.node.isRequired,
+}
+
 const Messages = ({ messages }) => {
   const messagesEndRef = useRef(null)
 
@@ -126,6 +131,10 @@ const Messages = ({ messages }) => {
       <div ref={messagesEndRef} />
     </div>
   )
+}
+
+Messages.propTypes = {
+  messages: PropTypes.node.isRequired,
 }
 
 const MessageForm = () => {

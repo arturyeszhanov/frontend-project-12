@@ -13,7 +13,6 @@ import {
   Card,
   Form,
   FloatingLabel,
-  Button,
 } from 'react-bootstrap'
 import signUpImage from '../../assets/avatar_1-D7Cot-zE.jpg'
 import { setCredentials } from '../../slices/authSlice'

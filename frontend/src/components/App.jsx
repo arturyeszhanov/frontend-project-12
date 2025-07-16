@@ -33,6 +33,7 @@ import {
 import routes from '../routes.js'
 import getModal from './modals/index.js'
 import { closeModal } from '../slices/modalSlice.js'
+import PropTypes from 'prop-types'
 
 const rollbarConfig = {
   accessToken: import.meta.env.ROLLBAR_ACCESS_TOKEN,
@@ -52,6 +53,10 @@ const FilterProvider = ({ children }) => {
       {children}
     </FilterContext.Provider>
   )
+}
+
+FilterProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 const AuthProvider = ({ children }) => {
@@ -86,6 +91,10 @@ const AuthProvider = ({ children }) => {
   )
 }
 
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 const PrivateRoute = ({ children }) => {
   const auth = useAuth()
   const location = useLocation()
@@ -99,6 +108,10 @@ const PrivateRoute = ({ children }) => {
       )
 }
 
+PrivateRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 const PublicRoute = ({ children }) => {
   const auth = useAuth()
   const location = useLocation()
@@ -110,6 +123,10 @@ const PublicRoute = ({ children }) => {
     : (
         children
       )
+}
+
+PublicRoute.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 const LogOutButton = () => {

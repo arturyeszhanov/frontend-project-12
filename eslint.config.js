@@ -24,6 +24,12 @@ export default [
     plugins: {
       react: pluginReact,
     },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+    ignores: ['node_modules/', 'dist/', 'build/'],
     rules: {
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
