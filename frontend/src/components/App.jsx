@@ -1,6 +1,3 @@
-import React, {
-  useState, useEffect, useMemo, useCallback,
-} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer } from 'react-toastify'
