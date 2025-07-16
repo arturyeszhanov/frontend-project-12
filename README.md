@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/arturyeszhanov/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/arturyeszhanov/frontend-project-12/actions)
+[![Actions Status](https://github.com/arturyeszhanov/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/arturyeszhanov/frontend-project-12/actions)&nbsp;&nbsp;&nbsp;[![Maintainability](https://qlty.sh/gh/arturyeszhanov/projects/frontend-project-12/maintainability.svg)](https://qlty.sh/gh/arturyeszhanov/projects/frontend-project-12)
 <br><br>
 
 # 📦 Slack Chat
