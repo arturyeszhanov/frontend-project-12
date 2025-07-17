@@ -23,6 +23,7 @@ import sendMessageButton from '../../assets/sendMessageButton.svg'
 import { selectChannelId, showModal } from '../../slices/modalSlice.js'
 import PropTypes from 'prop-types'
 import apiPaths from '../../apiPaths.js'
+import { useNavigate } from 'react-router-dom'
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation()
@@ -166,6 +167,10 @@ const MessageForm = () => {
       channelId: channels.currentChannel.id,
       username: auth.username,
     }
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
 
     try {
       await axios.post(apiPaths.messages(), newMessage, {

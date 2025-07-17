@@ -9,7 +9,7 @@ import {
   Route,
 } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
-import { Navbar, Modal } from 'react-bootstrap'
+import { Navbar } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { io } from 'socket.io-client'
 import NotFoundPage from './pages/NotFoundPage.jsx'
