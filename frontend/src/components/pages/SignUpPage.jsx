@@ -167,6 +167,7 @@ const SignUpPage = () => {
                                   values,
                                   setFieldTouched,
                                 )}
+                                autoComplete="off"
                               />
                               <Form.Control.Feedback type="invalid" tooltip>
                                 {meta.touched && meta.error}

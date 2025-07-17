@@ -66,7 +66,7 @@ const LoginForm = () => {
           <Field
             type="text"
             name="username"
-            autocomplete="username"
+            autocomplete="off"
             placeholder={t('loginPage.yourName')}
             required
             id="username"
@@ -79,7 +79,7 @@ const LoginForm = () => {
           <Field
             type="password"
             name="password"
-            autocomplete="username"
+            autocomplete="off"
             placeholder={t('loginPage.yourPassword')}
             required
             id="password"
