@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer } from 'react-toastify'
@@ -6,7 +6,7 @@ import { Provider, ErrorBoundary } from '@rollbar/react'
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
 } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import { Navbar, Modal } from 'react-bootstrap'

@@ -57,6 +57,7 @@ export default {
       successCreate: 'Канал создан',
       successRename: 'Канал переименован',
       successDelete: 'Канал удалён',
+      unauthorized: 'Сессия истекла. Пожалуйста, обновите страницу и войдите снова.',
     },
   },
 }

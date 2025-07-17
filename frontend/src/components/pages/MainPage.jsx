@@ -181,7 +181,15 @@ const MessageForm = () => {
       inputRef.current?.focus()
     }
     catch (error) {
-      setErrorMessage(error.message || t('notifications.messageError'))
+      if (error.response?.status === 401) {
+        toast.error(t('notification.unauthorized'))
+        localStorage.removeItem('userId')
+        dispatch(logOut())
+        navigate('/login')
+      }
+      else {
+        setErrorMessage(error.message || t('notifications.messageError'))
+      }
     }
   }
 
