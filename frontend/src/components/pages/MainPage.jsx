@@ -139,6 +139,7 @@ Messages.propTypes = {
 }
 
 const MessageForm = () => {
+  const dispatch = useDispatch()
   const filterWords = useFilter()
   const { t } = useTranslation()
   const inputRef = useRef(null)
@@ -186,7 +187,7 @@ const MessageForm = () => {
         toast.error(t('notification.unauthorized'))
         localStorage.removeItem('userId')
         dispatch(logOut())
-        navigate(routes.login())
+        routes.login()
       }
       else {
         setErrorMessage(error.message || t('notifications.messageError'))
