@@ -17,7 +17,6 @@ import {
 import signUpImage from '../../assets/avatar_1-D7Cot-zE.jpg'
 import { setCredentials } from '../../slices/authSlice'
 import { useAuth } from '../../hooks'
-import routes from '../../routes.js'
 import apiPaths from '../../apiPaths.js'
 
 const SignUpPage = () => {

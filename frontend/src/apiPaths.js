@@ -5,6 +5,6 @@ export default {
   users: () => `${apiPath}/data`,
   messages: () => `${apiPath}/messages`,
   signup: () => `${apiPath}/signup`,
-  channels: (id) => id ? `${apiPath}/channels/${id}` : `${apiPath}/channels`,
+  channels: id => id ? `${apiPath}/channels/${id}` : `${apiPath}/channels`,
   socket: () => import.meta.env.VITE_SOCKET_HOST,
 }

@@ -17,7 +17,6 @@ import {
   setMessages,
 } from '../../slices/messagesSlice.js'
 import { setChannels, setCurrentChannel } from '../../slices/channelsSlice.js'
-import routes from '../../routes.js'
 import { useFilter } from '../../hooks/index.jsx'
 import addChannelButton from '../../assets/addChannelButton.svg'
 import sendMessageButton from '../../assets/sendMessageButton.svg'
