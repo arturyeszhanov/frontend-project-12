@@ -1,29 +1,21 @@
-import {
-  useState, useEffect, useMemo, useCallback,
-} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import {useEffect} from 'react'
+import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer } from 'react-toastify'
 import { Provider, ErrorBoundary } from '@rollbar/react'
-import filter from 'leo-profanity'
 import {
   BrowserRouter,
   Routes,
-  Route,
-  useLocation,
-  Navigate,
+  Route
 } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import { Navbar, Modal } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { io } from 'socket.io-client'
-import { AuthContext, FilterContext } from '../contexts/index.jsx'
-import { useAuth } from '../hooks/index.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import MainPage from './pages/MainPage.jsx'
 import SignUpPage from './pages/SignUpPage.jsx'
-import { clearCredentials } from '../slices/authSlice.js'
 import { addNewMessage } from '../slices/messagesSlice.js'
 import {
   addNewChannel,
@@ -31,130 +23,18 @@ import {
   renameChannel,
 } from '../slices/channelsSlice.js'
 import routes from '../routes.js'
-import getModal from './modals/index.js'
-import { closeModal } from '../slices/modalSlice.js'
-import PropTypes from 'prop-types'
 import apiPaths from '../apiPaths.js'
+
+import FilterProvider from '../components/providers/FilterProvider.jsx'
+import AuthProvider from '../components/providers/AuthProvider.jsx'
+import PrivateRoute from '../components/routes/PrivateRoute.jsx'
+import PublicRoute from '../components/routes/PublicRoute.jsx'
+import LogOutButton from '../components/common/LogOutButton.jsx'
+import ModalFacade from '../components/modals/ModalFacade.jsx'
 
 const rollbarConfig = {
   accessToken: import.meta.env.ROLLBAR_ACCESS_TOKEN,
   environment: 'testenv',
-}
-
-const FilterProvider = ({ children }) => {
-  const filterWords = useCallback((word) => {
-    filter.loadDictionary('en')
-    const englishWord = filter.clean(word)
-    filter.loadDictionary('ru')
-    return filter.clean(englishWord)
-  }, [])
-
-  return (
-    <FilterContext.Provider value={filterWords}>
-      {children}
-    </FilterContext.Provider>
-  )
-}
-
-FilterProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-const AuthProvider = ({ children }) => {
-  const dispatch = useDispatch()
-  const [loggedIn, setLoggedIn] = useState(() => {
-    try {
-      const credentials = JSON.parse(window.localStorage.getItem('userId'))
-      return !!credentials
-    }
-    catch (error) {
-      console.error(error)
-      return false
-    }
-  })
-  const logIn = (data) => {
-    window.localStorage.setItem('userId', JSON.stringify(data))
-    setLoggedIn(true)
-  }
-  const logOut = useCallback(() => {
-    localStorage.removeItem('userId')
-    setLoggedIn(false)
-    dispatch(clearCredentials())
-  }, [dispatch])
-
-  const contextValue = useMemo(
-    () => ({ loggedIn, logIn, logOut }),
-    [loggedIn, logOut],
-  )
-
-  return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
-  )
-}
-
-AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-const PrivateRoute = ({ children }) => {
-  const auth = useAuth()
-  const location = useLocation()
-
-  return auth.loggedIn
-    ? (
-        children
-      )
-    : (
-        <Navigate to={routes.login()} state={{ from: location }} />
-      )
-}
-PrivateRoute.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-const PublicRoute = ({ children }) => {
-  const auth = useAuth()
-  const location = useLocation()
-
-  return auth.loggedIn
-    ? (
-        <Navigate to={routes.root()} state={{ from: location }} />
-      )
-    : (
-        children
-      )
-}
-
-PublicRoute.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-const LogOutButton = () => {
-  const { t } = useTranslation()
-  const { logOut, loggedIn } = useAuth()
-
-  return loggedIn
-    ? (
-        <button type="button" className="btn btn-primary" onClick={logOut}>
-          {t('logoutButton')}
-        </button>
-      )
-    : null
-}
-
-const ModalFacade = () => {
-  const modal = useSelector(state => state.modal)
-  console.log('modal', modal)
-  console.log('modal.type', modal.type)
-  console.log('getModal(modal.type)', getModal(modal.type))
-  const CurrentModal = getModal(modal.type)
-  const dispatch = useDispatch()
-
-  return (
-    <Modal show={modal.active} onHide={() => dispatch(closeModal())}>
-      {CurrentModal ? <CurrentModal /> : null}
-    </Modal>
-  )
 }
 
 const App = () => {
