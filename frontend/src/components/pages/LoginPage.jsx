@@ -17,6 +17,7 @@ import loginImage from '../../assets/loginImage.jpg'
 import { setCredentials } from '../../slices/authSlice.js'
 import { useAuth } from '../../hooks/index.jsx'
 import routes from '../../routes.js'
+import apiPaths from '../../apiPaths.js'
 
 const LoginForm = () => {
   const usernameRef = useRef(null)
@@ -41,13 +42,13 @@ const LoginForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       setAuthError(null)
-      const response = await axios.post(routes.loginPath(), values)
+      const response = await axios.post(apiPaths.login(), values)
       const { data } = response
       resetForm()
       dispatch(setCredentials(data))
 
       logIn(data)
-      navigate(routes.rootRoute())
+      navigate(routes.root())
     }
     catch (e) {
       setAuthError(t(e.response ? 'notification.wrongCredentials' : 'notification.error'))

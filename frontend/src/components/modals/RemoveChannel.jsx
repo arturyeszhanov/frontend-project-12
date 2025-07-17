@@ -4,8 +4,6 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
-
-import routes from '../../routes'
 import { closeModal } from '../../slices/modalSlice'
 import { setCurrentChannel } from '../../slices/channelsSlice'
 import { removeChannelMessages } from '../../slices/messagesSlice.js'
