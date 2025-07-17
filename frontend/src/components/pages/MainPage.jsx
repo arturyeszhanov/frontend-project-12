@@ -26,7 +26,6 @@ import apiPaths from '../../apiPaths.js'
 import routes from '../../routes.js'
 import { useAuth } from '../../hooks/index'
 
-
 const Channels = ({ channels }) => {
   const { t } = useTranslation()
 
