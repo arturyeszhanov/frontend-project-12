@@ -23,6 +23,7 @@ import sendMessageButton from '../../assets/sendMessageButton.svg'
 import { selectChannelId, showModal } from '../../slices/modalSlice.js'
 import PropTypes from 'prop-types'
 import apiPaths from '../../apiPaths.js'
+import routes from '../../routes.js'
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation()
@@ -167,7 +168,6 @@ const MessageForm = () => {
       username: auth.username,
     }
 
-
     try {
       await axios.post(apiPaths.messages(), newMessage, {
         headers: {
@@ -186,7 +186,7 @@ const MessageForm = () => {
         toast.error(t('notification.unauthorized'))
         localStorage.removeItem('userId')
         dispatch(logOut())
-        navigate('/login')
+        navigate(routes.login())
       }
       else {
         setErrorMessage(error.message || t('notifications.messageError'))
