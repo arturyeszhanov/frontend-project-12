@@ -34,6 +34,7 @@ import routes from '../routes.js'
 import getModal from './modals/index.js'
 import { closeModal } from '../slices/modalSlice.js'
 import PropTypes from 'prop-types'
+import apiPaths from '../apiPaths.js'
 
 const rollbarConfig = {
   accessToken: import.meta.env.ROLLBAR_ACCESS_TOKEN,
@@ -104,10 +105,9 @@ const PrivateRoute = ({ children }) => {
         children
       )
     : (
-        <Navigate to={routes.loginRoute()} state={{ from: location }} />
+        <Navigate to={routes.login()} state={{ from: location }} />
       )
 }
-
 PrivateRoute.propTypes = {
   children: PropTypes.node.isRequired,
 }
@@ -118,7 +118,7 @@ const PublicRoute = ({ children }) => {
 
   return auth.loggedIn
     ? (
-        <Navigate to={routes.rootRoute()} state={{ from: location }} />
+        <Navigate to={routes.root()} state={{ from: location }} />
       )
     : (
         children
@@ -158,7 +158,7 @@ const ModalFacade = () => {
 }
 
 const App = () => {
-  const socket = io(routes.socketPath(), {
+  const socket = io(apiPaths.socket(), {
     withCredentials: true,
   })
 
@@ -203,7 +203,7 @@ const App = () => {
             <div className="d-flex flex-column bg-white h-100">
               <Navbar className="bg-light-subtle shadow-sm">
                 <Container>
-                  <Navbar.Brand href={routes.rootRoute()}>
+                  <Navbar.Brand href={routes.root()}>
                     {t('title')}
                   </Navbar.Brand>
                   <LogOutButton />
@@ -213,7 +213,7 @@ const App = () => {
               <BrowserRouter>
                 <Routes>
                   <Route
-                    path={routes.rootRoute()}
+                    path={routes.root()}
                     element={(
                       <PrivateRoute>
                         <MainPage />
@@ -221,16 +221,16 @@ const App = () => {
                     )}
                   />
                   <Route
-                    path={routes.loginRoute()}
+                    path={routes.login()}
                     element={(
                       <PublicRoute>
                         <LoginPage />
                       </PublicRoute>
                     )}
                   />
-                  <Route path={routes.signupRoute()} element={<SignUpPage />} />
+                  <Route path={routes.signup()} element={<SignUpPage />} />
                   <Route
-                    path={routes.othersRoute()}
+                    path={routes.notFound()}
                     element={<NotFoundPage />}
                   />
                 </Routes>

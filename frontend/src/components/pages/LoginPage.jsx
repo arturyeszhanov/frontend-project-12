@@ -116,7 +116,7 @@ const LoginPage = () => {
             </Card.Body>
             <Card.Footer className="text-center p-3">
               <span>{t('loginPage.footer')}</span>
-              <a href={routes.signupRoute()}>{t('loginPage.registration')}</a>
+              <a href={routes.signup()}>{t('loginPage.registration')}</a>
             </Card.Footer>
           </Card>
         </Col>

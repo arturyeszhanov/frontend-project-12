@@ -23,6 +23,7 @@ import addChannelButton from '../../assets/addChannelButton.svg'
 import sendMessageButton from '../../assets/sendMessageButton.svg'
 import { selectChannelId, showModal } from '../../slices/modalSlice.js'
 import PropTypes from 'prop-types'
+import apiPaths from '../../apiPaths.js'
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation()
@@ -168,7 +169,7 @@ const MessageForm = () => {
     }
 
     try {
-      await axios.post(routes.messagesPath(), newMessage, {
+      await axios.post(apiPaths.messages(), newMessage, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
@@ -245,12 +246,12 @@ const MainPage = () => {
     const fetchData = async () => {
       try {
         const [channelsResponse, messagesResponse] = await Promise.all([
-          axios.get(routes.channelsPath(), {
+          axios.get(apiPaths.channels(), {
             headers: {
               Authorization: `Bearer ${auth.token}`,
             },
           }),
-          axios.get(routes.messagesPath(), {
+          axios.get(apiPaths.messages(), {
             headers: {
               Authorization: `Bearer ${auth.token}`,
             },

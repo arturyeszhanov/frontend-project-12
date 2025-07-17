@@ -10,6 +10,7 @@ import routes from '../../routes'
 import { closeModal } from '../../slices/modalSlice'
 import { setCurrentChannel } from '../../slices/channelsSlice'
 import { useFilter } from '../../hooks/index.jsx'
+import apiPaths from '../../apiPaths.js'
 
 const AddChannelModal = () => {
   const filterWords = useFilter()
@@ -39,7 +40,7 @@ const AddChannelModal = () => {
     try {
       const name = filterWords(channelName)
       const response = await axios.post(
-        routes.channelsPath(),
+        apiPaths.channels(),
         { name },
         {
           headers: {

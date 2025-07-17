@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import routes from '../../routes'
 import { closeModal } from '../../slices/modalSlice'
 import { useFilter } from '../../hooks/index.jsx'
+import apiPaths from '../../apiPaths.js'
 
 const RenameChannelModal = () => {
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const RenameChannelModal = () => {
     const name = filterWords(channelName)
     try {
       await axios.patch(
-        routes.channelsPath(selectedChannelId || null),
+        apiPaths.channels(selectedChannelId || null),
         { name },
         {
           headers: {

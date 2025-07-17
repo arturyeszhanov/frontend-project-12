@@ -9,6 +9,7 @@ import routes from '../../routes'
 import { closeModal } from '../../slices/modalSlice'
 import { setCurrentChannel } from '../../slices/channelsSlice'
 import { removeChannelMessages } from '../../slices/messagesSlice.js'
+import apiPaths from '../../apiPaths.js'
 
 const RemoveChannelModal = () => {
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ const RemoveChannelModal = () => {
 
   const handleRemoveChannel = async () => {
     try {
-      await axios.delete(routes.channelsPath(modal.selectedChannelId), {
+      await axios.delete(apiPaths.channels(modal.selectedChannelId), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
