@@ -24,6 +24,8 @@ import { selectChannelId, showModal } from '../../slices/modalSlice.js'
 import PropTypes from 'prop-types'
 import apiPaths from '../../apiPaths.js'
 import routes from '../../routes.js'
+import { useAuth } from '../../hooks/index'
+
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation()
@@ -140,6 +142,7 @@ Messages.propTypes = {
 
 const MessageForm = () => {
   const dispatch = useDispatch()
+  const { logOut } = useAuth()
   const filterWords = useFilter()
   const { t } = useTranslation()
   const inputRef = useRef(null)
